@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: discoveryservicedeployment
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   appName: discoveryservice
+ template:
+  metadata:
+   labels:
+    appName: discoveryservice
+  spec:
+   containers:
+    - name: discoveryservicepods
+      image: gryffindor937/discoveryservicedeployment:1.0
+      imagePullPolicy: Always
+      ports:
+       - containerPort: 8761
+      env:
+      - name: eureka_client_service-url_defaultZone
+        value: http://discoveryservicelb.default.svc.cluster.local:8761/eureka
+      - name: spring_config_import
+        value: configserver:http://tmconfigurationservicelb.default.svc.cluster.local:8762/config
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+ name: discoveryservicelb
+spec:
+ selector:
+  appName: discoveryservice
+ ports:
+  - port: 8761
+    targetPort: 8761
+ type: LoadBalancer

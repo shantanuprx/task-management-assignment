@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: tasksubmissionservicedeployment
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   appName: tasksubmissionservice
+ template:
+  metadata:
+   labels:
+    appName: tasksubmissionservice
+  spec:
+   containers:
+    - name: tasksubmissionservicepods
+      image: gryffindor937/tasksubmissionservicedeployment:1.0
+      imagePullPolicy: Always
+      ports:
+       - containerPort: 8089
+      env:
+      - name: spring_profiles_active
+        value: cluster
+      - name: eureka_client_service-url_defaultZone
+        value: http://discoveryservicelb.default.svc.cluster.local:8761/eureka
+      - name: spring_config_import
+        value: configserver:http://tmconfigurationservicelb.default.svc.cluster.local:8762/config

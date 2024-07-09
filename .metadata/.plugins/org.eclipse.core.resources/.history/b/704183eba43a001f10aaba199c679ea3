@@ -1,0 +1,5 @@
+package com.taskmanagement.taskcreationservice.exception;
+
+public class BadRequestException {
+
+}

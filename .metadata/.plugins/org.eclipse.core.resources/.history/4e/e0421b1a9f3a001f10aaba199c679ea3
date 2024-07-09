@@ -1,0 +1,11 @@
+package com.taskmanagement.taskcreationservice.service.util;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class VerificationUtil<T> {
+
+	public boolean verifyUserDetails(String userId) {
+		return true;
+	}
+}

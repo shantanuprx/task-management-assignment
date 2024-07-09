@@ -1,0 +1,16 @@
+1719818571299	Rename package 'com.taskmanagement.taskcreationservice.adapter'
+1719818608361	Rename package 'com.taskmanagement.taskcreationservice.common'
+1719818617866	Rename package 'com.taskmanagement.taskcreationservice.controller'
+1719818631343	Rename package 'com.taskmanagement.taskcreationservice.dto'
+1719818642030	Rename package 'com.taskmanagement.taskcreationservice.entity'
+1719818655099	Rename package 'com.taskmanagement.taskcreationservice.repository'
+1719818671267	Rename package 'com.taskmanagement.taskcreationservice.service'
+1719818687159	Rename package 'com.taskmanagement.taskcreationservice.service.util'
+1719820172989	Rename type 'TaskService'
+1719820929612	Delete element
+1719822011379	Delete element
+1719822015099	Delete element
+1719822276005	Rename type 'TaskDto'
+1719823467626	Rename type 'TaskAdapter'
+1719823911514	Rename type 'TaskUpdateDto'
+1719901753989	Delete element

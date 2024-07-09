@@ -1,0 +1,5 @@
+package com.taskmanagement.userservice.util;
+
+public class KeyCloakConfig {
+
+}

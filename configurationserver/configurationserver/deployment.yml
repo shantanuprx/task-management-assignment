@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: tmconfigurationservicedeployment
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   appName: tmconfigurationservice
+ template:
+  metadata:
+   labels:
+    appName: tmconfigurationservice
+  spec:
+   containers:
+    - name: tmconfigurationservicepods
+      image: gryffindor937/tmconfigurationservicedeployment:1.0
+      imagePullPolicy: Always
+      ports:
+       - containerPort: 8762
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+ name: tmconfigurationservicelb
+spec:
+ selector:
+  appName: tmconfigurationservice
+ ports:
+  - port: 8762
+    targetPort: 8762
+ type: LoadBalancer
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: tmglobalconfigmap
+data:
+ eureka_client_service-url_defaultZone: http://tmdiscoveryservicelb.default.svc.cluster.local:8761/eureka

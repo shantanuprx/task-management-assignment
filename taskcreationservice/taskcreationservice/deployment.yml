@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: taskcreationservicedeployment
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   appName: taskcreationservice
+ template:
+  metadata:
+   labels:
+    appName: taskcreationservice
+  spec:
+   containers:
+    - name: taskcreationservicepods
+      image: gryffindor937/taskcreationservicedeployment:1.0
+      imagePullPolicy: Always
+      ports:
+       - containerPort: 8088
+      env:
+      - name: spring_profiles_active
+        value: cluster
+      - name: eureka_client_service-url_defaultZone
+        value: http://discoveryservicelb.default.svc.cluster.local:8761/eureka
+      - name: spring_config_import
+        value: configserver:http://tmconfigurationservicelb.default.svc.cluster.local:8762/config

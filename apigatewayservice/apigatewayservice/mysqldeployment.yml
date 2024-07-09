@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: mysqldeployment
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   appName: mysql
+ template:
+  metadata:
+   labels:
+    appName: mysql
+  spec:
+   containers:
+    - name: mysqlpods
+      image: mysql:latest
+      imagePullPolicy: Always
+      ports:
+       - containerPort: 3306
+      volumeMounts:
+      - name: mysqlsstorage
+        mountPath: /var/lib/mysql
+      env:
+      - name: MYSQL_ROOT_PASSWORD
+        valueFrom:
+         configMapKeyRef:
+          name: globalconfigmap
+          key: MYSQL_ROOT_PASSWORD
+         
+   volumes:
+   - name: mysqlsstorage
+     persistentVolumeClaim:
+      claimName: mysql-pvc
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+ name: mysqllb
+spec:
+ selector:
+  appName: mysql
+ ports:
+  - port: 3306
+    targetPort: 3306
+ type: LoadBalancer

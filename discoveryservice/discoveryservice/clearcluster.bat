@@ -1,0 +1,1 @@
+kubectl delete deployment gatewayservicedeployment & kubectl delete service gatewayservicelb & kubectl delete deployment orderservicedeployment & kubectl delete service orderservicelb & kubectl delete deployment productservicedeployment & kubectl delete service productservicelb & kubectl delete deployment userservicedeployment & kubectl delete service userservicelb 

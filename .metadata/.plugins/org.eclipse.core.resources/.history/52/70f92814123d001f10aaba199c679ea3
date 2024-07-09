@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: apigatewayservicedeployment
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   appName: apigatewayservice
+ template:
+  metadata:
+   labels:
+    appName: apigatewayservice
+  spec:
+   containers:
+    - name: discoveryservicepods
+      image: gryffindor937/apigatewayservicedeployment:1.0
+      imagePullPolicy: Always
+      ports:
+       - containerPort: 8087
+      env:
+      - name: eureka_client_service-url_defaultZone
+        value: http://discoveryservicelb.default.svc.cluster.local:8761/eureka
+      - name: spring_config_import
+        value: configserver:http://configurationservicelb.default.svc.cluster.local:8762/config
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+ name: apigatewayservicelb
+spec:
+ selector:
+  appName: apigatewayservice
+ ports:
+  - port: 8087
+    targetPort: 8087
+ type: LoadBalancer

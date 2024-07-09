@@ -22,4 +22,4 @@ ENV JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
 
 COPY target/configurationserver-0.0.1-SNAPSHOT.jar configurationserver.jar
 
-ENTRYPOINT [ "java", "-jar","-Deureka.client.service-url.defaultZone=http://discoveryservicelb.default.svc.cluster.local:8761/eureka", "configurationserver.jar"]
+ENTRYPOINT [ "java", "-jar", "configurationserver.jar"]

@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "userservice")
+@FeignClient(name = "userservice", url = "http://tmuserservicelb:8086")
 public interface Userserviceclient {
 
 	@GetMapping("/api/users/{userId}")

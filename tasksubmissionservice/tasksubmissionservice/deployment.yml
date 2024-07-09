@@ -21,7 +21,19 @@ spec:
       env:
       - name: spring_profiles_active
         value: cluster
-      - name: eureka_client_service-url_defaultZone
-        value: http://discoveryservicelb.default.svc.cluster.local:8761/eureka
       - name: spring_config_import
         value: configserver:http://tmconfigurationservicelb.default.svc.cluster.local:8762/config
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+ name: tasksubmissionservicelb
+spec:
+ selector:
+  appName: tasksubmissionservice
+ ports:
+  - port: 8089
+    targetPort: 8089
+ type: LoadBalancer

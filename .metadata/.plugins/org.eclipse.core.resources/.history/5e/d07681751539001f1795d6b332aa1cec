@@ -1,5 +1,0 @@
-package com.taskmanagement.apigatewayservice.security.dto;
-
-public class JWTConvertorFromKeyCloak {
-
-}
